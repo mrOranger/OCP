@@ -1,5 +1,8 @@
 - [Defining a Class](#defining-a-class)
 - [Understand Package Declaration](#understand-package-declaration)
+- [Data Types](#data-types)
+- [Variables](#variables)
+- [Garbage Collector](#garbage-collector)
 
 # Introduction and Basis Concepts
 
@@ -77,3 +80,9 @@ java --classpath classes Application.class
 
 Using the `--classpath classes` argument, we are indicating that the file `Application.class` can be found in `classes`
 directory. 
+
+## Data Types <a id="data-types"></a>
+
+## Variables <a id="variables"></a>
+
+## Garbage Collector <a id="garbage-collector"></a>
