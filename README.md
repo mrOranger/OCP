@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div style="text-align: center; max-width: 150px;">
     <img src="assets/java-logo.png" style="max-width: 150px; text-align: center;"/>
 </div>
 
