@@ -83,6 +83,57 @@ directory.
 
 ## Data Types <a id="data-types"></a>
 
+Data types in Java are classified in: __primitive__ or __reference__ types. Java includes eight primitive data types:
+
+* `boolean` values.
+* `byte` values are 8-bit integer numbers.
+* `short` values are 16-bit integer numbers.
+* `int` values are 32-bit integer numbers.
+* `long` values are 64-bit integer values.
+* `float` values are single precision, 32-bit floating point numbers.
+* `double` values are double precision, 64-bit floating point numbers.
+* `char` are 16-bit Unicode characters.
+
+Differently from primitive data types, reference data types are any other values referencing an object. Objects are
+stored in the heap memory space, and referenced using a pointer. Variables representing objects, are nothing more than a
+pointer to a space in memory. Allocating an object is done using the `new` keyword, excepts for String data type, that
+can be created also without explicitly using `new`.
+
+Latest version of Java, includes the definition of __text blocks__, using the """ characters, like in the following way:
+
+```java
+final String blockString = """
+    This is a block string.
+    Block string can be defined in multiple rows.
+"""
+```
+
 ## Variables <a id="variables"></a>
 
+A __variable__ is the name of a piece of memory. Any string can be used as an identifier of a variable. There are four
+rules to follow for assigning a name to a variable:
+
+* Identifier must begin with a letter, a currency symbol or an _.
+* Identifier can include numbers, but cannot start with a number.
+* A single underscore is not a valid identifier.
+* You cannot use a reserved word as an identifier.
+
+We can create multiple identifier using the same type, like the following example:
+
+```java
+int aVariable, anotherVariable;
+```
+
+However, we cannot assign multiple identifier to different types. The previous example cannot be executed, if one of the
+two variables has a different type. 
+
+Nowadays, it is possible to define a variable using the `var` keyword, making inference about its type. However,
+declaring a variable using `var`, requires to assign immediately a value, as soon as the variable is declared. `null`
+cannot be assigned to a variable declared as `var`, however, we can assign `null` only after the variable has been
+initialized. 
+
 ## Garbage Collector <a id="garbage-collector"></a>
+
+Java includes a __Garbage Collector__ that frees automatically spaces that are no longer needed. We do not have control
+over the garbage collector, `System.gc` suggests to clean the memory, however, the method is not guaranteed to do
+anything.
