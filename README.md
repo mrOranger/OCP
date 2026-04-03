@@ -12,3 +12,4 @@ The repository is organized in this way:
 - [Basis Types and Operators](./02-basis-types-and-operators/README.md)
 - [Control Structures](./03-control-structures/README.md)
 - [Core API](./04-core-api/README.md)
+- [Methods](./05-methods/README.md)
