@@ -13,3 +13,4 @@ The repository is organized in this way:
 - [Control Structures](./03-control-structures/README.md)
 - [Core API](./04-core-api/README.md)
 - [Methods](./05-methods/README.md)
+- [Classes](./06-classes/README.md)
