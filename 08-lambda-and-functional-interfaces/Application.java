@@ -11,6 +11,10 @@ public class Application {
         final Printer printer = new PrinterName();
 
         Application.print(people, printer);
+
+        Car car;
+        Motorcycle motorcycle;
+        Phone phone;
     }
 
     public static void print (List<Person> people, Printer printer) {

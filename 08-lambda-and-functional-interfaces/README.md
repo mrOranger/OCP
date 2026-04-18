@@ -113,6 +113,44 @@ a context, therefore Java cannot infer the return type of the lambda, it must be
 
 ## Basis About Functional Interfaces <a id="basis-about-functional-interfaces"></a>
 
+A functional interface is an interface containing only one abstract method. The annotation `@FunctionalInterface` is an
+useful annotation defined in the `java.lang` package, used to indicate the compiler that the interface must satisfy the
+basic condition to be a functional interface:
+
+These examples are valid functional interfaces:
+
+```java
+public Vehichle {
+    public abstract void start ();
+}
+
+public Car extends Vehicle {}
+
+public Motocicle extends Vehicle {
+    public default move () {
+        System.out.println("Moving ...");
+    }
+}
+```
+
+However, any object inherits from `java.lang.Object`, interfaces too. Therefore, some methods like `equals`, `toString`
+are already defined inside the definition of a functional interface. How does Java handle interfaces considering these
+theoretical concepts? If an interface re-declare a public method with the same signature of a method contained in the
+`java.lang.Object` class, that method does not represent a single abstract method valid to declare the interface a functional
+interface.
+
+This example shows a valid functional interface re-implementing some methods already defined in `java.lang.Object`
+class:
+
+```java
+public interface Phone {
+    public abstract String toString ();
+    public abstract int hashCode ();
+    public abstract boolean equals (Object objectoToCompare);
+    public abstract void startup ();
+}
+```
+
 ## Method References <a id="method-references"></a>
 
 ## Built-In Functional Interfaces <a id="built-in-functional-interfaces"></a>
