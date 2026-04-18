@@ -3,6 +3,10 @@
 - [Basis About Lambdas](#basis-about-lambda)
 - [Basis About Functional Interfaces](#basis-about-functional-interfaces)
 - [Method References](#method-references)
+    - [Method Reference and Static Methods](#method-reference-and-static-methods)
+    - [Using Method Reference on a Particular Object](#method-reference-on-objects)
+    - [How Method Reference Works with Parameters](#method-reference-with-parameters)
+    - [Method Reference and Constructors](#method-reference-and-constructors)
 - [Built-In Functional Interfaces](#built-in-functional-interfaces)
 - [Variables and Lambdas](#variables-and-lambdas)
 
@@ -143,6 +147,7 @@ This example shows a valid functional interface re-implementing some methods alr
 class:
 
 ```java
+@FunctionalInterface
 public interface Phone {
     public abstract String toString ();
     public abstract int hashCode ();
@@ -152,6 +157,118 @@ public interface Phone {
 ```
 
 ## Method References <a id="method-references"></a>
+
+Method reference is a shorter syntax to use in declaration of lambdas. Considering the previous example, we can re-write
+the same method using this new syntax, in the following way:
+
+```java
+public class Application {
+    
+    public static void main (String[] args) {
+
+        final List<Person> people = List.of(
+            new Person("Mario", "Rossi", LocalDate.of(1990, 1, 1),
+            new Person("Luigi", "Neri", LocalDate.of(1991, 2, 2)),
+            new Person("Francesca", "Rossi", LocalDate.of(1992, 3, 3)),
+            new Person("Elisa", "Bruni", LocalDate.of(1993, 4, 4))
+        );
+
+        Application.print(
+            people,
+            System.out::println
+        );
+    }
+
+    public static void print (List<Person> people, Printer printer) {
+        for (final Person currentPerson : people) {
+            printer.print(currentPerson);
+        }
+    }
+
+}
+```
+
+The syntax `System.out::println`, is a shorter way to declare `(Person person) -> System.out.println(person)`. Java can
+automatically understand that the parameter `person` is used as a single parameter for the function `println`.
+
+Working with method reference requires to understand how does this syntax works in different situations like:
+
+- Static methods.
+- Instance methods of a specific object.
+- Instance method having a parameter declared at runtime.
+- Constructors.
+
+### Method Reference with Static Methods <a id="method-reference-and-static-methods"></a>
+
+Java has no problem in using static methods, referencing them though the `::` syntax. If the `println` method were a
+static method, no changes were needed.
+
+### Using Method Reference on a Particular Object <a id="method-reference-on-objects"></a>
+
+Let's consider the following example, showing how we can use both lambda and method reference to implement the same
+behaviour:
+
+```java
+public interface ComparableNumber {
+    public abstract int compare (Integer number);
+}
+
+public class Application {
+    public static void main (String[] args) {
+        Integer randomNumber = 1;
+        ComparableNumber methodReference = randomNumber::compareTo;
+        ComparableNumber lambdaFunction = (Integer aNumber) -> randomNumber.compareTo(aNumber);
+
+        System.out.printf("Method Reference %d\n", methodReference.compare(1));
+        System.out.printf("Lambda Function %d\n", lambdaFunction.compare(2));
+    }
+}
+```
+
+### How Method Reference Works with Parameters <a id="method-reference-with-parameters"></a>
+
+Java can infer automatically the instance on which a method is called. For instance, considering the following example:
+
+```java
+public interface AnInterface {
+    public abstract void doSomething (String aString);
+}
+
+public class Application {
+    public static void main (String[] args) {
+        String aString = "Hello World from Java!";
+
+        AnInterface anInterface = String::isEmpty;
+        AnInterface anotherInterface = (String randomString) -> randomString.isEmpty();
+    }
+}
+```
+
+Differently from the previous example, where we used a variable to indicate the target of the method `isEmpty`, in this
+example, Java infers that the unique variable `aString` of the functional interface, will be used to invoke the method
+`isEmpty`.
+
+### Method Reference and Constructors <a id="method-reference-and-constructors"></a>
+
+Finally, we are approaching to the last method to use a functional reference. This time, we are using constructors in
+conjunction with method reference. In fact, the `new` operator can be used also as the right-hand part of a method
+reference, to invoke the constructor of a class:
+
+```java
+public inteface CreationInterface {
+    public abstract String create ();
+}
+
+public Applicaion {
+    public static void main (String[] args) {
+        CreationInterface methodReference = String::new;
+        CreationInterface lambdaFunction = () -> new String ();
+    }
+}
+```
+
+Java is smart enough to pass a parameter to the constructor, using the method reference, if any of them is defined in
+the functional interface's abstract method.
 
 ## Built-In Functional Interfaces <a id="built-in-functional-interfaces"></a>
 

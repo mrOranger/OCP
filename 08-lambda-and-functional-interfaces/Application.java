@@ -15,6 +15,24 @@ public class Application {
         Car car;
         Motorcycle motorcycle;
         Phone phone;
+        
+        Integer randomNumber = 1;
+        ComparableNumber methodReference = randomNumber::compareTo;
+        ComparableNumber lambdaFunction = (Integer aNumber) -> randomNumber.compareTo(aNumber);
+        System.out.printf("methodReference: %d\n", methodReference.compare(1));
+        System.out.printf("lambdaFunction: %d\n", lambdaFunction.compare(1));
+
+
+        String aString = "Hello World from Java!";
+
+        AnInterface anInterface = String::isEmpty;
+        AnInterface anotherInterface = (String randomString) -> randomString.isEmpty();
+
+        CreationInterface createMethodReference = String::new;
+        CreationInterface lambdaCreateMethod = () -> new String();
+
+        System.out.println(createMethodReference.create());
+        System.out.println(lambdaCreateMethod.create());
     }
 
     public static void print (List<Person> people, Printer printer) {
