@@ -14,3 +14,5 @@ The repository is organized in this way:
 - [Core API](./04-core-api/README.md)
 - [Methods](./05-methods/README.md)
 - [Classes](./06-classes/README.md)
+- [Beyond Classes](./07-beyond-classes/README.md)
+- [Lambda and Functional Interfaces](./08-lambda-and-functional-interfaces/README.md)
