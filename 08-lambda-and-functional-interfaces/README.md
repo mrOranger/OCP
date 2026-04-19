@@ -272,4 +272,105 @@ the functional interface's abstract method.
 
 ## Built-In Functional Interfaces <a id="built-in-functional-interfaces"></a>
 
+Java provides a set of built-in functional interface, based on the most common patterns in working with lambda:
+
+- `Supplier`. Requires no arguments and returns a value. The abstract method contained in this interface is `get`.
+- `Consumer` and `BiConsumer`. These functional interfaces are implemented in order to do something with one or two
+  parameters and not returning any value. The abstract method contained in these interfaces is `accept`.
+- `Predicate` and `BiPredicate`. Are used to predicate something bases on one or two parameters, and returning a boolean
+  value. The abstract method contained in these interfaces is `test`.
+- `Function` and `BiFunction`. The basis `Function` functional interface, takes a parameter and returns a value. The
+  enhanced interface `BiFunction`, takes two parameters and returns a value. The abstract method implemented in these
+  interfaces is `apply`.
+- Finally, `UnaryOperator` and `BinaryOperator` have been designed as a specific implementation of `Function` and 
+  `BiFunction`. `UnaryOperator` requires a parameter and returns a value having the same type of the input parameter. 
+  `BinaryOperator` requires two parameters and returns another value, all of them have the same type. The abstract
+  method implemented in these interface is `apply`.
+
+```java
+import java.util.function.Supplier;
+import java.util.function.Consumer;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import java.util.function.BiFunction;
+import java.util.function.UnaryOperator;
+import java.util.function.BinaryOperator;
+
+public class Application {
+
+    public static void main (String[] args) {
+        final Supplier<Integer> supplier = () -> Integer.valueOf(2);
+        final Consumer<Integer> consumer = (x) -> System.out.println("Consumer");
+        final BiConsumer<Integer, Integer> biConsumer = (x, y) -> System.out.println("BiConsumer");
+        final Predicate<Integer> predicate = (x) -> true;
+        final BiPredicate<Integer, Integer> biPredicate = (x, y) -> true;
+        final Function<Integer, Double> function = (x) -> Double.valueOf(x);
+        final BiFunction<Integer, Integer, Double> biFunction = (x, y) -> Double.valueOf(x + y);
+        final UnaryOperator<Integer> unaryOperator = (x) -> x;
+        final BinaryOperator<Integer> binaryOperator = (x, y) -> Integer.valueOf(x + y);
+
+        supplier.get();
+        consumer.accept(1);
+        biConsumer.accept(1, 2);
+        predicate.test(1);
+        biPredicate.test(1, 2);
+        function.apply(1);
+        biFunction.apply(1, 2);
+        unaryOperator.apply(1);
+        binaryOperator.apply(2, 2);
+    }
+
+}
+```
+
+Functional interfaces must contain at most one abstract method. However, it does not mean that a functional interface
+must contain only one method. In fact, there are some utility default methods implemented in those functional interfaces
+provided by Java:
+
+- `andThen`, can be applied to a consumer to concatenate the execution with another consumer. On the other hand, it can
+  also be applied to `Function`.
+- `compose` composes two `Function`, passing the result of the first, as input to the second.
+- `and`, `or`, `negate` are function working with `Predicate` and `BiPredicate`.
+
+```java
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.function.BiFunction;
+
+public class Application {
+
+    public static void main (String[] args) {
+
+        final Predicate<Integer> truePredicate = (x) -> true;
+        final Predicate<Integer> falsePredicate = (x) -> false;
+        final Consumer<Integer> anotherConsumer = (y) -> System.out.printf("%d\n", y);
+        final BiFunction<Integer, Integer, Integer> multiply = (x, y) -> x * y;
+        final Function<Integer, Integer> sum = (x) -> x + 2;
+
+        consumer
+            .andThen(anotherConsumer)
+            .accept(1);
+
+        final var result = multiply
+            .andThen(sum)
+            .apply(1, 2);
+
+        System.out.printf("Result: %d\n", result);
+
+        final var statement = truePredicate
+            .and(falsePredicate)
+            .or(truePredicate)
+            .test(1);
+
+        System.out.printf("Result: %b\n", statement);
+
+    }
+
+}
+```
+
+
 ## Variables and Lambdas <a id="variables-and-lambdas"></a>
