@@ -83,6 +83,9 @@ public class Application {
             .test(1);
 
         System.out.printf("Result: %b\n", statement);
+
+        final var randomParameter = 1;
+        final Consumer<Integer> randomConsumer = (randomParameter) -> System.out.printf("randomConsumer = %d\n", randomConsumer);
     }
 
     public static void print (List<Person> people, Printer printer) {

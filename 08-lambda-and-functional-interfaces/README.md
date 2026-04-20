@@ -372,5 +372,25 @@ public class Application {
 }
 ```
 
-
 ## Variables and Lambdas <a id="variables-and-lambdas"></a>
+
+Lambda can reference variables outside the scope of its body. However, variables referenced by lambda, must be immutable
+or effective immutable. The reason behind this requirement is that, lambda has an execution context detached from the
+normal execution context of the function where they are defined. Volatile variables can cause side-effects in normal
+execution.
+
+Be careful in re-declaring variables inside a lambda, this operation is not permitted. In fact, the following code won't
+compile:
+
+```java
+public class Application {
+    
+    public static void main (String[] args) {
+        final var randomParmeter = 1;
+
+        final Consumer<Integer> randomConsumer = (randomParmeter) -> System.out.printf("randomParameter = %d\n",
+        randomParmeter);
+    }
+
+}
+```
