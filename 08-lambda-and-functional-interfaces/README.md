@@ -8,6 +8,8 @@
     - [How Method Reference Works with Parameters](#method-reference-with-parameters)
     - [Method Reference and Constructors](#method-reference-and-constructors)
 - [Built-In Functional Interfaces](#built-in-functional-interfaces)
+    - [Enhanced Methods](#enhanced-methods)
+    - [Functional Interfaces for Primitive Values](#functional-interfaces-for-primitive-values)
 - [Variables and Lambdas](#variables-and-lambdas)
 
 Since Java 8, _lambda_ were introduced. A lambda function is an anonymous function used to specify code that most of the
@@ -325,6 +327,8 @@ public class Application {
 }
 ```
 
+### Enhanced Methods <a id="enhanced-methods"></a>
+
 Functional interfaces must contain at most one abstract method. However, it does not mean that a functional interface
 must contain only one method. In fact, there are some utility default methods implemented in those functional interfaces
 provided by Java:
@@ -371,6 +375,17 @@ public class Application {
 
 }
 ```
+
+### Functional Interfaces for Primitive Values <a id="functional-interfaces-for-primitive-values"></a>
+
+Functional interfaces works with generic values. However, how can we deal situations in which a primitive value is
+required rather than its wrapping class? The answer to this question is that, in Java some utility functional interfaces
+has been created to manage primitive values, such that:
+
+- `BooleanSupplier` to get a `boolean`.
+- `IntSupplier` to get an `int`.
+- `LongSupplier` to get a `long`.
+- `DoubleSupplier` to get a `double`.
 
 ## Variables and Lambdas <a id="variables-and-lambdas"></a>
 
